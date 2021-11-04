@@ -8,6 +8,25 @@ public class Supermercado {
 	private Date horaApertura;
 	private Date horaCierre;
 	
-	// TODO constructor y metodos
+	public Supermercado(Date horaApertura, Date horaCierre) {
+		this.setHoraApertura(horaApertura);
+		this.setHoraCierre(horaCierre);
+	}
+
+	public Date getHoraApertura() {
+		return horaApertura;
+	}
+
+	public void setHoraApertura(Date horaApertura) {
+		this.horaApertura = horaApertura;
+	}
+
+	public Date getHoraCierre() {
+		return horaCierre;
+	}
+
+	public void setHoraCierre(Date horaCierre) {
+		this.horaCierre = horaCierre;
+	}
 
 }

@@ -10,14 +10,51 @@ public class Usuario {
 	private int comprasMensuales;
 	
 	public Usuario(String nombre, String dni, String direccion, String email) {
-		this.nombre = nombre;
-		this.dni = dni;
-		this.direccion = direccion;
-		this.email = email;
+		this.setNombre(nombre);
+		this.setDni(dni);
+		this.setDireccion(direccion);
+		this.setEmail(email);
+		this.setComprasMensuales(0);
 	}
-	
-	// TODO: hacer get y set
+
 	public String getNombre() {
 		return nombre;
 	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getComprasMensuales() {
+		return comprasMensuales;
+	}
+
+	public void setComprasMensuales(int comprasMensuales) {
+		this.comprasMensuales = comprasMensuales;
+	}
+	
 }
