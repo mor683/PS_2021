@@ -18,5 +18,6 @@
 
 	<modules>
 		<module>SupermercadoCommon</module>
+		<module>SupermercadoBusiness</module>
 	</modules>
 </project>

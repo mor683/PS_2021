@@ -1,5 +1,8 @@
 package es.unican.ps.supermercado.negocio.interfaces;
 
-public interface IRealizacionPedidosLocal {
+import javax.ejb.Local;
+
+@Local
+public interface IRealizacionPedidosLocal extends IRealizacionPedidos {
 
 }
