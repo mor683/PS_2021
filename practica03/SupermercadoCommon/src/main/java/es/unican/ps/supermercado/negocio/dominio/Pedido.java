@@ -7,7 +7,7 @@ import java.util.Set;
 public class Pedido {
 	
 	private String referencia;
-	private String estado;	// Puede ser Admitido, En Reparto o Entregado.
+	private String estado;	// Puede ser Procesado, En Reparto o Entregado.
 	private Date fecha;
 	private Date horaRecogida;
 	private Usuario usuario;
@@ -68,5 +68,13 @@ public class Pedido {
 
 	public void setLineasPedido(Set<LineaPedido> lineasPedido) {
 		this.lineasPedido = lineasPedido;
+	}
+	
+	public double getPrecio() {
+		double precio = 0;
+		for (LineaPedido l : lineasPedido) {
+			precio += l.getCantidad() * l.getArticulo().getPrecio();
+		}
+		return precio;
 	}
 }
