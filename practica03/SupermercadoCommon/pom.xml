@@ -5,9 +5,11 @@
 	<parent>
 		<groupId>es.unican.ps</groupId>
 		<artifactId>practica03</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<artifactId>SupermercadoCommon</artifactId>
+	
+	<packaging>jar</packaging>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
