@@ -13,7 +13,11 @@ public class GestionUsuarios implements IGestionUsuariosLocal, IGestionUsuariosR
     private IUsuariosDAO usuariosDAO;
 	
 	public Usuario registrar(Usuario u) {
-		return usuariosDAO.crearUsuario(u);
+		Usuario usuario = usuariosDAO.usuarioPorDni(u.getDni());
+		if (usuario != null) {
+			usuario = usuariosDAO.crearUsuario(u);
+		}
+		return usuario;
 	}
 
 	public boolean login(String dni) {

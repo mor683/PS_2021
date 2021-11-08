@@ -15,18 +15,40 @@ public class GestionArticulos implements IGestionArticulosLocal, IGestionArticul
 	private IArticulosDAO articulosDAO;
 
 	public Articulo anhadirArticulo(Articulo a) {
-		return articulosDAO.crearArticulo(a);
+		Articulo articulo = null;
+
+		// Si el articulo no existe, se añade a la BD
+		if (articulosDAO.articuloPorNombre(a.getNombre()) == null) {
+			articulo = articulosDAO.crearArticulo(a);
+		}
+
+		return articulo;
 	}
 
 	public Articulo eliminarArticulo(Articulo a) {
-		return articulosDAO.eliminarArticulo(a);
+		Articulo articulo = null;
+
+		// Si el articulo no existe, no se elimina de la BD
+		if (articulosDAO.articuloPorNombre(a.getNombre()) != null) {
+			articulo = articulosDAO.eliminarArticulo(a);
+		}
+
+		return articulo;
 	}
 
 	public Articulo actualizarStock(Articulo a, int unidades) {
+		Articulo articulo = null;
+		
+		// Si el numero de unidades es mayor que 0 se actualiza
 		if(unidades >= 0) {
-			a.setUnidadesStock(unidades);
+			// Si el articulo existe, se modifica
+			if (articulosDAO.articuloPorNombre(a.getNombre()) != null) {
+				a.setUnidadesStock(unidades);
+				articulo = articulosDAO.modificarArticulo(a);
+			}
 		}
-		return articulosDAO.modificarArticulo(a);
+		
+		return articulo;
 	}
 
 }
