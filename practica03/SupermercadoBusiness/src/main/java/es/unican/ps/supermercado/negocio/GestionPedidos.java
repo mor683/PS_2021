@@ -7,17 +7,17 @@ import es.unican.ps.supermercado.negocio.dominio.Pedido;
 import es.unican.ps.supermercado.negocio.dominio.Usuario;
 import es.unican.ps.supermercado.negocio.interfaces.IGestionPedidosLocal;
 import es.unican.ps.supermercado.negocio.interfaces.IGestionPedidosRemote;
-import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAOLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAOLocal;
+import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAO;
+import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAO;
 
 @Stateless
 public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote {
 	
 	@EJB
-    private IPedidosDAOLocal pedidosDAO;
+    private IPedidosDAO pedidosDAO;
 	
 	@EJB
-    private IUsuariosDAOLocal usuariosDAO;
+    private IUsuariosDAO usuariosDAO;
 	
 	public double entregarPedido(String ref, String dni) {
 		Pedido pedido = pedidosDAO.pedidoPorReferencia(ref);
