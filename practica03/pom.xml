@@ -7,6 +7,11 @@
 	<version>0.0.1</version>
 	<packaging>pom</packaging>
 
+	<modules>
+		<module>SupermercadoCommon</module>
+		<module>SupermercadoBusiness</module>
+	</modules>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -14,10 +19,35 @@
 			<version>8.0</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.12.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>es.unican.ps</groupId>
+			<artifactId>SupermercadoBusiness</artifactId>
+			<version>0.0.1</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>es.unican.ps</groupId>
+			<artifactId>SupermercadoCommon</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
 	</dependencies>
 
-	<modules>
-		<module>SupermercadoCommon</module>
-		<module>SupermercadoBusiness</module>
-	</modules>
 </project>

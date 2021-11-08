@@ -13,6 +13,10 @@ public class GestionArticulos implements IGestionArticulosLocal, IGestionArticul
 
 	@EJB
 	private IArticulosDAO articulosDAO;
+	
+	public GestionArticulos(IArticulosDAO articulosDAO) {
+		this.articulosDAO = articulosDAO;
+	}
 
 	public Articulo anhadirArticulo(Articulo a) {
 		Articulo articulo = null;
