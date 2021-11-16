@@ -12,9 +12,11 @@ public class Pedido {
 	private Date horaRecogida;
 	private Usuario usuario;
 	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
+	private static int numPedido = 0;
 	
-	public Pedido(String referencia, Usuario usuario, Set<LineaPedido> lineasPedido) {
-		this.setReferencia(referencia);
+	public Pedido(Usuario usuario, Set<LineaPedido> lineasPedido) {
+		this.setReferencia(String.valueOf(numPedido));
+		numPedido++;
 		this.setEstado("Admitido");
 		this.setFecha(new Date());
 		this.setHoraRecogida(null);
