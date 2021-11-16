@@ -1,17 +1,21 @@
 package es.unican.ps.supermercado.negocio;
 
+import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import es.unican.ps.supermercado.negocio.dominio.Pedido;
 import es.unican.ps.supermercado.negocio.dominio.Usuario;
+import es.unican.ps.supermercado.negocio.interfaces.IGestionComprasLocal;
+import es.unican.ps.supermercado.negocio.interfaces.IGestionComprasRemote;
 import es.unican.ps.supermercado.negocio.interfaces.IGestionPedidosLocal;
 import es.unican.ps.supermercado.negocio.interfaces.IGestionPedidosRemote;
 import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAO;
 import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAO;
 
 @Stateless
-public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote {
+public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote, IGestionComprasLocal, IGestionComprasRemote {
 	
 	@EJB
     private IPedidosDAO pedidosDAO;
@@ -52,6 +56,14 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 		}
 		
 		return pedido;
+	}
+
+	public boolean resetearComprasMensuales() {
+		Set<Usuario> usuarios = usuariosDAO.usuarios();
+		for (Usuario u:usuarios) {
+			u.setComprasMensuales(0);
+		}
+		return true;
 	}
 
 }
