@@ -12,6 +12,7 @@ public class Pedido {
 	private Date horaRecogida;
 	private Usuario usuario;
 	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
+	private Set<Usuario> usuarios = new HashSet<Usuario>();
 	private static int numPedido = 0;
 	
 	public Pedido(Usuario usuario, Set<LineaPedido> lineasPedido) {
@@ -78,5 +79,13 @@ public class Pedido {
 			precio += l.getCantidad() * l.getArticulo().getPrecio();
 		}
 		return precio;
+	}
+
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 }

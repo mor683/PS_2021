@@ -1,11 +1,9 @@
 package es.unican.ps.supermercado.negocio;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,7 +13,7 @@ import org.mockito.junit.MockitoRule;
 import es.unican.ps.supermercado.negocio.dominio.Articulo;
 import es.unican.ps.supermercado.negocio.interfaces.IArticulosDAO;
 
-public class SupermercadoEJBTest {
+public class GestionArticulosTest {
 
 	// Creacion del SUT
 	private GestionArticulos sut;

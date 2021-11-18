@@ -1,5 +1,7 @@
 package es.unican.ps.supermercado.negocio.dominio;
 
+import java.util.HashSet;
+import java.util.Set;
 
 public class Usuario {
 
@@ -8,6 +10,8 @@ public class Usuario {
 	private String direccion;
 	private String email;
 	private int comprasMensuales;
+	private Set<LineaPedido> carritoActual = new HashSet<LineaPedido>();
+	private Set<Pedido> pedidos = new HashSet<Pedido>();
 	
 	public Usuario(String nombre, String dni, String direccion, String email) {
 		this.setNombre(nombre);
@@ -55,6 +59,22 @@ public class Usuario {
 
 	public void setComprasMensuales(int comprasMensuales) {
 		this.comprasMensuales = comprasMensuales;
+	}
+
+	public Set<LineaPedido> getCarritoActual() {
+		return carritoActual;
+	}
+
+	public void setCarritoActual(Set<LineaPedido> carritoActual) {
+		this.carritoActual = carritoActual;
+	}
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 }

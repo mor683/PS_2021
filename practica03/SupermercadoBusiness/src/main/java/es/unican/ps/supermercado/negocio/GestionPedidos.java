@@ -82,37 +82,36 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 		return articulosDAO.articulos();
 	}
 
-	public boolean anhadirAlCarrito(String refArticulo, int numUnidades, Set<LineaPedido> carrito) {
-		Articulo articulo = articulosDAO.articuloPorNombre(refArticulo);
+	public boolean anhadirAlCarrito(String nombre, int numUnidades, Usuario usuario) {
+		Articulo articulo = articulosDAO.articuloPorNombre(nombre);
 		boolean resultado = false;
 
 		if (articulo.getUnidadesStock() >= numUnidades) {
 			LineaPedido lineaPedido = new LineaPedido(numUnidades, articulo);
-			carrito.add(lineaPedido);
+			usuario.getCarritoActual().add(lineaPedido);
 			resultado = true;
 		}
 
 		return resultado;
 	}
 
-	public Set<LineaPedido> verCarrito() {
-		// TODO:
-		return null;
+	public Set<LineaPedido> verCarrito(Usuario usuario) {
+		return usuario.getCarritoActual();
 	}
 
-	public Pedido confirmarPedido(Date horaDeRecogida, Set<LineaPedido> carrito) {
+	public Pedido confirmarPedido(Date horaDeRecogida, Usuario usuario) {
 		long hours = TimeUnit.MILLISECONDS.toHours(horaDeRecogida.getTime());
 
 		// Comprueba que la hora de recogida sea en el mismo dia, entre las 9:00 y las 21:00.
 		if (DateUtils.isSameDay(horaDeRecogida, new Date()) && hours >= 9 && hours <= 21) {
 			// Actualiza el stock de los articulos.
-			for (LineaPedido l : carrito) {
+			for (LineaPedido l : usuario.getCarritoActual()) {
 				l.getArticulo().setUnidadesStock(l.getArticulo().getUnidadesStock()-l.getCantidad());
 			}
 			
 			// Se almacena el pedido.
-			Pedido pedido = new Pedido(null, carrito);	// TODO:
-			// TODO: usuario.addPedido
+			Pedido pedido = new Pedido(usuario, usuario.getCarritoActual());
+			usuario.getPedidos().add(pedido);
 		}
 		return null;
 	}
