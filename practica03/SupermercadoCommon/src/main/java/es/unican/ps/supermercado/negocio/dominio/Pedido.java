@@ -1,23 +1,42 @@
 package es.unican.ps.supermercado.negocio.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Pedido {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name="Pedidos")
+public class Pedido implements Serializable {
 	
+	@Id
 	private String referencia;
+	
 	private String estado;	// Puede ser Procesado, En Reparto o Entregado.
+	
 	private Date fecha;
+	
+	@Column(name="Hora_De_Recogida")
 	private Date horaRecogida;
+	
+	@ManyToOne
+	@JoinColumn(name="Usuario_FK")
 	private Usuario usuario;
+	
+	@OneToMany
+	@JoinColumn(name="Pedido_FK")
 	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
-	private static int numPedido = 0;
 	
 	public Pedido(Usuario usuario, Set<LineaPedido> lineasPedido) {
-		this.setReferencia(String.valueOf(numPedido));
-		numPedido++;
 		this.setEstado("Admitido");
 		this.setFecha(new Date());
 		this.setHoraRecogida(null);
@@ -79,13 +98,5 @@ public class Pedido {
 			precio += l.getCantidad() * l.getArticulo().getPrecio();
 		}
 		return precio;
-	}
-
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 }

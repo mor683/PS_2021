@@ -1,9 +1,26 @@
 package es.unican.ps.supermercado.negocio.dominio;
 
-public class Articulo {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name="Articulos")
+public class Articulo implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
 	private String nombre;
+	
 	private int unidadesStock;
+	
 	private double precio;
 	
 	public Articulo(String nombre, int unidadesStock, double precio) {
