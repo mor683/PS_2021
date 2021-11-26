@@ -1,16 +1,38 @@
 package es.unican.ps.supermercado.negocio.dominio;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Usuario {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-	private String nombre;
+@SuppressWarnings("serial")
+@Entity
+@Table(name="Usuarios")
+public class Usuario implements Serializable {
+
+	@Id
 	private String dni;
+	
+	private String nombre;
+	
 	private String direccion;
+	
 	private String email;
+	
+	@Column(name="Compras_Mensuales")
 	private int comprasMensuales;
+	
+	@OneToMany
+	@JoinColumn(name="LineasPedido_FK")
 	private Set<LineaPedido> carritoActual = new HashSet<LineaPedido>();
+	
+	@OneToMany(mappedBy="usuario")
 	private Set<Pedido> pedidos = new HashSet<Pedido>();
 	
 	public Usuario(String nombre, String dni, String direccion, String email) {

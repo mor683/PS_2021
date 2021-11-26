@@ -1,9 +1,28 @@
 package es.unican.ps.supermercado.negocio.dominio;
 
+import java.io.Serializable;
 
-public class LineaPedido {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name="Lineas_Pedido")
+public class LineaPedido implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
 
 	private int cantidad;
+	
+	@OneToOne
+	@JoinColumn(name="Articulo_FK")
 	private Articulo articulo;
 	
 	public LineaPedido(int cantidad, Articulo articulo) {
