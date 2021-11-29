@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd%22%3E
 
-	<persistence-unit name="SupermercadoPU" transaction-type="RESOURCE_LOCAL">
-		<!-- EclipseLink -->
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <persistence-unit name="SupermercadoPU"
+        transaction-type="RESOURCE_LOCAL">
+        <!-- EclipseLink -->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-		<jta-data-source>jdbc/supermercado</jta-data-source>
+        <jta-data-source>jdbc:/es.unican.ps.supermercado</jta-data-source>
 
-		<class>es.unican.ps.supermercado.negocio.dominio.Articulo</class>
-		<class>es.unican.ps.supermercado.negocio.dominio.LineaPedido</class>
+        <class>es.unican.ps.supermercado.negocio.dominio.Articulo</class>
+        <class>es.unican.ps.supermercado.negocio.dominio.LineaPedido</class>
+        <class>es.unican.ps.supermercado.negocio.dominio.Pedido</class>
+        <class>es.unican.ps.supermercado.negocio.dominio.Usuario</class>
 
-		<properties>
-			<property name="eclipselink.ddl-generation"
-				value="create-or-extend-tables" />
-		</properties>
-	</persistence-unit>
-	
+        <properties>
+            <property name="eclipselink.ddl-generation"
+                value="create-or-extend-tables" />
+        </properties>
+    </persistence-unit>
+
 </persistence>
