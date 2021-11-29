@@ -25,6 +25,10 @@ public class LineaPedido implements Serializable {
 	@JoinColumn(name="Articulo_FK")
 	private Articulo articulo;
 	
+	public LineaPedido() {
+		
+	}
+	
 	public LineaPedido(int cantidad, Articulo articulo) {
 		this.cantidad = cantidad;
 		this.setArticulo(articulo);

@@ -23,6 +23,10 @@ public class Articulo implements Serializable {
 	
 	private double precio;
 	
+	public Articulo() {
+		
+	}
+	
 	public Articulo(String nombre, int unidadesStock, double precio) {
 		this.nombre = nombre;
 		this.unidadesStock = unidadesStock;

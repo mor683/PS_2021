@@ -36,6 +36,10 @@ public class Pedido implements Serializable {
 	@JoinColumn(name="Pedido_FK")
 	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
 	
+	public Pedido() {
+		
+	}
+	
 	public Pedido(Usuario usuario, Set<LineaPedido> lineasPedido) {
 		this.setEstado("Admitido");
 		this.setFecha(new Date());

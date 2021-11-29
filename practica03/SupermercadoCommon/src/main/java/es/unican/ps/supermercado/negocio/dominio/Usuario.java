@@ -35,6 +35,10 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private Set<Pedido> pedidos = new HashSet<Pedido>();
 	
+	public Usuario() {
+		
+	}
+	
 	public Usuario(String nombre, String dni, String direccion, String email) {
 		this.setNombre(nombre);
 		this.setDni(dni);
