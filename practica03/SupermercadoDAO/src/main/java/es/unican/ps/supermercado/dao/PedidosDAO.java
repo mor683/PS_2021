@@ -52,7 +52,7 @@ public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
 		Pedido p;
 		// Buscamos el pedido con la referencia indicada
 		try {
-			p = em.find(Pedido.class, nombre);
+			p = em.find(Pedido.class, ref);
 		} catch (EntityExistsException e) {
 			// No existe el pedido
 			return null;
