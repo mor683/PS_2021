@@ -2,7 +2,12 @@ package es.unican.ps.supermercado.dao;
 
 import java.util.Set;
 
-import es.unican.ps.supermercado.negocio.dominio.Pedido;
+import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import es.unican.ps.supermercado.negocio.dominio.Usuario;
 import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAOLocal;
 import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAORemote;
@@ -47,10 +52,10 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 	}
 
 	public Usuario usuarioPorDni(String dni) {
-		Pedido p;
+		Usuario u;
 		// Buscamos el usuario con el dni indicado
 		try {
-			p = em.find(Usuario.class, dni);
+			u = em.find(Usuario.class, dni);
 		} catch (EntityExistsException e) {
 			// No existe el usuario
 			return null;

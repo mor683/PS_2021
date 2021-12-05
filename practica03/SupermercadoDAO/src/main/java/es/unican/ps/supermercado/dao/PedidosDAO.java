@@ -2,8 +2,15 @@ package es.unican.ps.supermercado.dao;
 
 import java.util.Set;
 
-import es.unican.ps.supermercado.negocio.dominio.Articulo;
+import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import es.unican.ps.supermercado.negocio.dominio.Pedido;
+import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAOLocal;
+import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAORemote;
 
 @Stateless
 public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
