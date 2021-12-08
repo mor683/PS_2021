@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import es.unican.ps.supermercado.negocio.dominio.Articulo;
-import es.unican.ps.supermercado.negocio.interfaces.IArticulosDAOLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IArticulosDAORemote;
+import es.unican.ps.supermercado.common.dominio.Articulo;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAOLocal;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAORemote;
+
 
 
 @Stateless
@@ -74,5 +75,8 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 		Query q = em.createQuery("SELECT a from Articulo a");
 		return (Set<Articulo>) q.getResultList();
 	}
-
+	
+	public void setEntityManager(EntityManager em) {
+		this.em = em;
+	}
 }

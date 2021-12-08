@@ -10,8 +10,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import es.unican.ps.supermercado.negocio.dominio.Articulo;
-import es.unican.ps.supermercado.negocio.interfaces.IArticulosDAO;
+import es.unican.ps.supermercado.common.dominio.Articulo;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAO;
+
 
 public class GestionArticulosTest {
 

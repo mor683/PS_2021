@@ -9,19 +9,20 @@ import javax.ejb.Stateless;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-import es.unican.ps.supermercado.negocio.dominio.Articulo;
-import es.unican.ps.supermercado.negocio.dominio.LineaPedido;
-import es.unican.ps.supermercado.negocio.dominio.Pedido;
-import es.unican.ps.supermercado.negocio.dominio.Usuario;
-import es.unican.ps.supermercado.negocio.interfaces.IArticulosDAO;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionComprasLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionComprasRemote;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionPedidosLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionPedidosRemote;
-import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAO;
-import es.unican.ps.supermercado.negocio.interfaces.IRealizacionPedidosLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IRealizacionPedidosRemote;
-import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAO;
+import es.unican.ps.supermercado.common.dominio.Articulo;
+import es.unican.ps.supermercado.common.dominio.LineaPedido;
+import es.unican.ps.supermercado.common.dominio.Pedido;
+import es.unican.ps.supermercado.common.dominio.Usuario;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAO;
+import es.unican.ps.supermercado.common.interfaces.IGestionComprasLocal;
+import es.unican.ps.supermercado.common.interfaces.IGestionComprasRemote;
+import es.unican.ps.supermercado.common.interfaces.IGestionPedidosLocal;
+import es.unican.ps.supermercado.common.interfaces.IGestionPedidosRemote;
+import es.unican.ps.supermercado.common.interfaces.IPedidosDAO;
+import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosLocal;
+import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosRemote;
+import es.unican.ps.supermercado.common.interfaces.IUsuariosDAO;
+
 
 
 @Stateless

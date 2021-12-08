@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>es.unican.ps</groupId>
 			<artifactId>SupermercadoCommon</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

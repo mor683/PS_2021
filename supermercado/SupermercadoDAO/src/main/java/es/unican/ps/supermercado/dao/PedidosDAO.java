@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import es.unican.ps.supermercado.negocio.dominio.Pedido;
-import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAOLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IPedidosDAORemote;
+import es.unican.ps.supermercado.common.dominio.Pedido;
+import es.unican.ps.supermercado.common.interfaces.IPedidosDAOLocal;
+import es.unican.ps.supermercado.common.interfaces.IPedidosDAORemote;
+
 
 
 @Stateless

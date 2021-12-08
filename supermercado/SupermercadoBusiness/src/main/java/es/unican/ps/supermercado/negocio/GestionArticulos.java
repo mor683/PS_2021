@@ -3,10 +3,11 @@ package es.unican.ps.supermercado.negocio;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import es.unican.ps.supermercado.negocio.dominio.Articulo;
-import es.unican.ps.supermercado.negocio.interfaces.IArticulosDAO;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionArticulosLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionArticulosRemote;
+import es.unican.ps.supermercado.common.dominio.Articulo;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAO;
+import es.unican.ps.supermercado.common.interfaces.IGestionArticulosLocal;
+import es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote;
+
 
 @Stateless
 public class GestionArticulos implements IGestionArticulosLocal, IGestionArticulosRemote {

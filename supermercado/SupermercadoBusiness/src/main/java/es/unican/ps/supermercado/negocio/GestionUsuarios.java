@@ -3,10 +3,11 @@ package es.unican.ps.supermercado.negocio;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import es.unican.ps.supermercado.negocio.dominio.Usuario;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionUsuariosLocal;
-import es.unican.ps.supermercado.negocio.interfaces.IGestionUsuariosRemote;
-import es.unican.ps.supermercado.negocio.interfaces.IUsuariosDAO;
+import es.unican.ps.supermercado.common.dominio.Usuario;
+import es.unican.ps.supermercado.common.interfaces.IGestionUsuariosLocal;
+import es.unican.ps.supermercado.common.interfaces.IGestionUsuariosRemote;
+import es.unican.ps.supermercado.common.interfaces.IUsuariosDAO;
+
 
 
 @Stateless
