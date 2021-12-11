@@ -10,7 +10,7 @@ public interface IArticulosDAO {
 	public Articulo crearArticulo(Articulo a);
 	public Articulo modificarArticulo(Articulo a);
 	public Articulo eliminarArticulo(Articulo a);
-	public Articulo articuloPorNombre(String nombre);
+	public Articulo articuloPorId(long id);
 	public Set<Articulo> articulos();
 
 }

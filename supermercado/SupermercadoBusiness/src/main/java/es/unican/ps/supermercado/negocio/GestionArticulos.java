@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import es.unican.ps.supermercado.common.dominio.Articulo;
-import es.unican.ps.supermercado.common.interfaces.IArticulosDAO;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAORemote;
 import es.unican.ps.supermercado.common.interfaces.IGestionArticulosLocal;
 import es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote;
 
@@ -13,9 +13,11 @@ import es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote;
 public class GestionArticulos implements IGestionArticulosLocal, IGestionArticulosRemote {
 
 	@EJB
-	private IArticulosDAO articulosDAO;
+	private IArticulosDAORemote articulosDAO;
 	
-	public GestionArticulos(IArticulosDAO articulosDAO) {
+	public GestionArticulos() {}
+	
+	public GestionArticulos(IArticulosDAORemote articulosDAO) {
 		this.articulosDAO = articulosDAO;
 	}
 
@@ -23,7 +25,7 @@ public class GestionArticulos implements IGestionArticulosLocal, IGestionArticul
 		Articulo articulo = null;
 
 		// Si el articulo no existe, se añade a la BD
-		if (articulosDAO.articuloPorNombre(a.getNombre()) == null) {
+		if (articulosDAO.articuloPorId(a.getId()) == null) {
 			articulo = articulosDAO.crearArticulo(a);
 		}
 
@@ -34,7 +36,7 @@ public class GestionArticulos implements IGestionArticulosLocal, IGestionArticul
 		Articulo articulo = null;
 
 		// Si el articulo no existe, no se elimina de la BD
-		if (articulosDAO.articuloPorNombre(a.getNombre()) != null) {
+		if (articulosDAO.articuloPorId(a.getId()) != null) {
 			articulo = articulosDAO.eliminarArticulo(a);
 		}
 
@@ -47,7 +49,7 @@ public class GestionArticulos implements IGestionArticulosLocal, IGestionArticul
 		// Si el numero de unidades es mayor que 0 se actualiza
 		if(unidades >= 0) {
 			// Si el articulo existe, se modifica
-			if (articulosDAO.articuloPorNombre(a.getNombre()) != null) {
+			if (articulosDAO.articuloPorId(a.getId()) != null) {
 				a.setUnidadesStock(unidades);
 				articulo = articulosDAO.modificarArticulo(a);
 			}

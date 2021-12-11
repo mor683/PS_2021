@@ -34,6 +34,14 @@ public class LineaPedido implements Serializable {
 		this.setArticulo(articulo);
 	}
 	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public int getCantidad() {
 		return cantidad;
 	}

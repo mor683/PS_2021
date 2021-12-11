@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import es.unican.ps.supermercado.common.dominio.Usuario;
 import es.unican.ps.supermercado.common.interfaces.IGestionUsuariosLocal;
 import es.unican.ps.supermercado.common.interfaces.IGestionUsuariosRemote;
-import es.unican.ps.supermercado.common.interfaces.IUsuariosDAO;
+import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
 
 
 
@@ -14,7 +14,9 @@ import es.unican.ps.supermercado.common.interfaces.IUsuariosDAO;
 public class GestionUsuarios implements IGestionUsuariosLocal, IGestionUsuariosRemote {
 
 	@EJB
-    private IUsuariosDAO usuariosDAO;
+    private IUsuariosDAORemote usuariosDAO;
+	
+	public GestionUsuarios() {}
 	
 	public Usuario registrar(Usuario u) {
 		Usuario usuario = usuariosDAO.usuarioPorDni(u.getDni());

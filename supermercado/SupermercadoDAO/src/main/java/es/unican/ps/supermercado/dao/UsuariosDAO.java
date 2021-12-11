@@ -13,7 +13,6 @@ import es.unican.ps.supermercado.common.interfaces.IUsuariosDAOLocal;
 import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
 
 
-
 @Stateless
 public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 
@@ -32,10 +31,10 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 	}
 
 	public Usuario modificarUsuario(Usuario u) {
-		// Modificamos el usuario
+		// Modificamos el usuario o le creamos si no existe
 		try {
 			em.merge(u);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el usuario
 			return null;
 		}
@@ -46,7 +45,7 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 		// Eliminamos el usuario
 		try {
 			em.remove(u);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el usuario
 			return null;
 		}
@@ -58,7 +57,7 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 		// Buscamos el usuario con el dni indicado
 		try {
 			u = em.find(Usuario.class, dni);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el usuario
 			return null;
 		}

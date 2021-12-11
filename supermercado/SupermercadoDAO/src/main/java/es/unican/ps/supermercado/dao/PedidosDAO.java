@@ -34,10 +34,10 @@ public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
 
 	@Override
 	public Pedido modificarPedido(Pedido p) {
-		// Modificamos el pedido
+		// Modificamos el pedido o le creamos si no existe
 		try {
 			em.merge(p);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el pedido
 			return null;
 		}
@@ -49,7 +49,7 @@ public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
 		// Eliminamos el pedido
 		try {
 			em.remove(p);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el pedido
 			return null;
 		}
@@ -62,7 +62,7 @@ public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
 		// Buscamos el pedido con la referencia indicada
 		try {
 			p = em.find(Pedido.class, ref);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el pedido
 			return null;
 		}

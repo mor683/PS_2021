@@ -34,10 +34,10 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 
 	@Override
 	public Articulo modificarArticulo(Articulo a) {
-		// Modificamos el articulo
+		// Modificamos el articulo o le creamos si no existe
 		try {
 			em.merge(a);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el articulo
 			return null;
 		}
@@ -49,7 +49,7 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 		// Eliminamos el articulo
 		try {
 			em.remove(a);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe el articulo
 			return null;
 		}
@@ -57,12 +57,12 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 	}
 
 	@Override
-	public Articulo articuloPorNombre(String nombre) {
+	public Articulo articuloPorId(long id) {
 		Articulo a;
 		// Buscamos el articulo con el nombre indicado
 		try {
-			a = em.find(Articulo.class, nombre);
-		} catch (EntityExistsException e) {
+			a = em.find(Articulo.class, id);
+		} catch (IllegalArgumentException e) {
 			// No existe el articulo
 			return null;
 		}
@@ -75,7 +75,7 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 		Query q = em.createQuery("SELECT a from Articulo a");
 		return (Set<Articulo>) q.getResultList();
 	}
-	
+
 	public void setEntityManager(EntityManager em) {
 		this.em = em;
 	}

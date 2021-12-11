@@ -47,6 +47,7 @@ public class Pedido implements Serializable {
 		this.setUsuario(usuario);
 		this.lineasPedido = lineasPedido;
 	}
+	
 
 	public String getReferencia() {
 		return referencia;

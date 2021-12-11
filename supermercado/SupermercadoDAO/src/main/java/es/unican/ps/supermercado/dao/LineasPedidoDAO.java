@@ -32,10 +32,10 @@ public class LineasPedidoDAO implements ILineasPedidoDAOLocal, ILineasPedidoDAOR
 
 	@Override
 	public LineaPedido modificarLineaPedido(LineaPedido l) {
-		// Modificamos la LineaPedido
+		// Modificamos la LineaPedido o la creamos si no existe
 		try {
 			em.merge(l);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe la LineaPedido
 			return null;
 		}
@@ -47,7 +47,7 @@ public class LineasPedidoDAO implements ILineasPedidoDAOLocal, ILineasPedidoDAOR
 		// Eliminamos la LineaPedido
 		try {
 			em.remove(l);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe la LineaPedido
 			return null;
 		}
@@ -60,7 +60,7 @@ public class LineasPedidoDAO implements ILineasPedidoDAOLocal, ILineasPedidoDAOR
 		// Buscamos la LineaPedido con el ID indicado
 		try {
 			l = em.find(LineaPedido.class, id);
-		} catch (EntityExistsException e) {
+		} catch (IllegalArgumentException e) {
 			// No existe la LineaPedido
 			return null;
 		}

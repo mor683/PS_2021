@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import es.unican.ps.supermercado.common.dominio.Articulo;
-import es.unican.ps.supermercado.common.interfaces.IArticulosDAO;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAORemote;
 
 
 public class GestionArticulosTest {
@@ -20,7 +20,7 @@ public class GestionArticulosTest {
 	private GestionArticulos sut;
 
 	@Mock
-	private IArticulosDAO mockArticulosDAO;
+	private IArticulosDAORemote mockArticulosDAO;
 	
 	@Rule
 	public MockitoRule mockitoRule = MockitoJUnit.rule();	
@@ -35,11 +35,13 @@ public class GestionArticulosTest {
 		
 		// programacion comun de mocks
 		detergente = new Articulo("Detergente", 30, 12.20);
+		detergente.setId(1);
 		detergenteActualizado = new Articulo("Detergente", 35, 12.20);
+		detergenteActualizado.setId(1);
 		aceite = new Articulo("Aceite", 10, 4.50);
 		
 		when(mockArticulosDAO.modificarArticulo(detergente)).thenReturn(detergenteActualizado);
-		when(mockArticulosDAO.articuloPorNombre("Detergente")).thenReturn(detergente);
+		when(mockArticulosDAO.articuloPorId(1)).thenReturn(detergente);
 	}
 	
 	// UT.3 - Clase GestionArticulos
@@ -47,7 +49,7 @@ public class GestionArticulosTest {
 	public void testActualizarStock() {
 		
 		// UT.3a
-		assertEquals(sut.actualizarStock(detergente, 35).getUnidadesStock(), detergenteActualizado.getUnidadesStock());
+		assertEquals(sut.actualizarStock(detergente, 35).getUnidadesStock(), 35);
 		
 		// UT.3b
 		assertEquals(sut.actualizarStock(detergente, -10), null);

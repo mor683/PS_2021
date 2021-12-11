@@ -13,15 +13,15 @@ import es.unican.ps.supermercado.common.dominio.Articulo;
 import es.unican.ps.supermercado.common.dominio.LineaPedido;
 import es.unican.ps.supermercado.common.dominio.Pedido;
 import es.unican.ps.supermercado.common.dominio.Usuario;
-import es.unican.ps.supermercado.common.interfaces.IArticulosDAO;
+import es.unican.ps.supermercado.common.interfaces.IArticulosDAORemote;
 import es.unican.ps.supermercado.common.interfaces.IGestionComprasLocal;
 import es.unican.ps.supermercado.common.interfaces.IGestionComprasRemote;
 import es.unican.ps.supermercado.common.interfaces.IGestionPedidosLocal;
 import es.unican.ps.supermercado.common.interfaces.IGestionPedidosRemote;
-import es.unican.ps.supermercado.common.interfaces.IPedidosDAO;
+import es.unican.ps.supermercado.common.interfaces.IPedidosDAORemote;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosLocal;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosRemote;
-import es.unican.ps.supermercado.common.interfaces.IUsuariosDAO;
+import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
 
 
 
@@ -29,13 +29,15 @@ import es.unican.ps.supermercado.common.interfaces.IUsuariosDAO;
 public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemote, IGestionComprasLocal, IGestionComprasRemote, IRealizacionPedidosLocal, IRealizacionPedidosRemote {
 
 	@EJB
-	private IPedidosDAO pedidosDAO;
+	private IPedidosDAORemote pedidosDAO;
 
 	@EJB
-	private IUsuariosDAO usuariosDAO;
+	private IUsuariosDAORemote usuariosDAO;
 
 	@EJB
-	private IArticulosDAO articulosDAO;
+	private IArticulosDAORemote articulosDAO;
+	
+	public GestionPedidos() {}
 
 	public double entregarPedido(String ref, String dni) {
 		Pedido pedido = pedidosDAO.pedidoPorReferencia(ref);
@@ -84,8 +86,8 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 		return articulosDAO.articulos();
 	}
 
-	public boolean anhadirAlCarrito(String nombre, int numUnidades, Usuario usuario) {
-		Articulo articulo = articulosDAO.articuloPorNombre(nombre);
+	public boolean anhadirAlCarrito(long id, int numUnidades, Usuario usuario) {
+		Articulo articulo = articulosDAO.articuloPorId(id);
 		boolean resultado = false;
 
 		if (articulo.getUnidadesStock() >= numUnidades) {
