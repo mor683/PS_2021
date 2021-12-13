@@ -45,8 +45,6 @@ public class GestionArticulosITest {
 	// java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosLocal
 	@AfterClass
 	public static void closeContainer() throws Exception {
-		// Reestablecer la base de datos
-		sut.actualizarStock(detergente, 30);
 		// Cerramos el contenedor
 		if(ec!= null) {
 			ec.close();
@@ -73,6 +71,9 @@ public class GestionArticulosITest {
 
 		// IT.3c
 		assertEquals(sut.actualizarStock(aceite, 15), null);
+
+		// Reestablecer la base de datos
+		sut.actualizarStock(detergente, 30);
 	}
 
 }
