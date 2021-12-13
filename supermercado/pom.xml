@@ -12,6 +12,7 @@
 		<module>SupermercadoCommon</module>
 		<module>SupermercadoDAO</module>
 		<module>SupermercadoBusiness</module>
+		<module>SupermercadoEAR</module>
 	</modules>
 
 	<dependencies>

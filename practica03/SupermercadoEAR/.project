@@ -3,6 +3,7 @@
 	<name>SupermercadoEAR</name>
 	<comment></comment>
 	<projects>
+		<project>SupermercadoCommon</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -40,9 +40,9 @@ public class GestionArticulosITest {
 		ec = EJBContainer.createEJBContainer(properties);
 
 		// Buscamos el EJB
-		sut= (IGestionArticulosRemote) ec.getContext().lookup("java:global/ejb-app/classesejb/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote");
+		sut= (IGestionArticulosRemote) ec.getContext().lookup("java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote");
 	}
-
+	// java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosLocal
 	@AfterClass
 	public static void closeContainer() throws Exception {
 		//Cerramos el contenedor
