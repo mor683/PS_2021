@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import es.unican.ps.supermercado.common.dominio.Articulo;
 import es.unican.ps.supermercado.common.dominio.LineaPedido;
+import es.unican.ps.supermercado.common.dominio.Pedido;
 import es.unican.ps.supermercado.common.dominio.Usuario;
 import es.unican.ps.supermercado.common.interfaces.IGestionUsuariosRemote;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosRemote;
@@ -23,15 +24,15 @@ public class SupermercadoBean {
 	@EJB
 	private IGestionUsuariosRemote myGestionUsuarios;
 	
-	private String dni;
-	private Usuario usuario;
-	private int unidades;
-	private Date horaRecogida;
+	private String dni;					//
+	private Usuario usuario;			//
+	private int unidades;				//
+	private Date horaRecogida;			//
 	private Articulo articulo;
-	private Set<Articulo> articulos;
-	private Set<LineaPedido> carrito;
-	private double precioTotal;
-	private long referencia;
+	private Set<Articulo> articulos;	//
+	private Set<LineaPedido> carrito;	//
+	private double precioTotal;			//
+	private Pedido pedido;				//
 	
 	public SupermercadoBean() {	}
 
@@ -83,16 +84,17 @@ public class SupermercadoBean {
 		this.precioTotal = precioTotal;
 	}
 
-	public long getReferencia() {
-		return referencia;
+	public Pedido getPedido() {
+		return pedido;
 	}
 
-	public void setReferencia(long referencia) {
-		this.referencia = referencia;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	
 	public String login() {
 		usuario = myGestionUsuarios.login(dni);
+		articulos = myGestionPedidos.verArticulos();
 		return "listaArticulos";
 	}
 	
@@ -102,7 +104,8 @@ public class SupermercadoBean {
 	}
 	
 	public String verCarrito() {
-		myGestionPedidos.verCarrito(usuario);
+		carrito = myGestionPedidos.verCarrito(usuario);
+		precioTotal = pedido.getPrecio();
 		return "carrito";
 	}
 	
@@ -113,6 +116,11 @@ public class SupermercadoBean {
 	
 	public String inicio() {
 		return "listaArticulos";
+	}
+	
+	public String confirmarPedido() {
+		pedido = myGestionPedidos.confirmarPedido(horaRecogida, usuario);
+		return "pedidoRealizado";
 	}
 
 }

@@ -13,24 +13,19 @@
 			<h:outputLabel value="Nombre" />
 			<h:outputLabel value="Precio" />
 			<h:outputLabel value="" />
-			<h:outputLabel value="" />
 
 			<c:forEach items="#{SupermercadoBean.articulos}" var="art">
 				<h:outputLabel value=#{art.nombre} />
 				<h:outputLabel value=#{art.precio} />
-				<h:link value="Añadir al carrito" outcome="articulo.xhtml"/>
+				<h:link value="Añadir al carrito" outcome="articulo.xhtml" />
+				<f:setPropertyActionListener target="#{SupermercadoBean.articulo}" value="art" />
 			</c:forEach>
-
 		</h:panelGrid>
+
 		<br></br>
-		<h:commandButton id="buttonAdd" value="+"
-			action="#{calculatorBean.add}" style="width: 50px; " />
-		<h:commandButton id="buttonSubstract" value="-"
-			action="#{calculatorBean.substract}" style="width: 50px; " />
-		<h:commandButton id="buttonMultiply" value="*"
-			action="#{calculatorBean.multiply}" style="width: 50px; " />
-		<h:commandButton id="buttonDivide" value="/"
-			action="#{calculatorBean.divide}" style="width: 50px; " />
+
+		<h:commandButton id="buttonVerCarrito" value="Ver Carro"
+			action="#{SupermercadoBean.verCarrito}" style="width: 50px; " />
 
 	</h:form>
 </h:body>
