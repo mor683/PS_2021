@@ -26,12 +26,9 @@ public class GestionUsuarios implements IGestionUsuariosLocal, IGestionUsuariosR
 		return usuario;
 	}
 
-	public boolean login(String dni) {
-		boolean loginCorrecto = false;
-		if (usuariosDAO.usuarioPorDni(dni) != null) {
-			loginCorrecto = true;
-		}
-		return loginCorrecto;
+	public Usuario login(String dni) {
+		Usuario u = usuariosDAO.usuarioPorDni(dni);
+		return u;
 	}
 
 }

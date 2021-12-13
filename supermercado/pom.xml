@@ -13,6 +13,7 @@
 		<module>SupermercadoDAO</module>
 		<module>SupermercadoBusiness</module>
 		<module>SupermercadoEAR</module>
+		<module>SupermercadoWeb</module>
 	</modules>
 
 	<dependencies>

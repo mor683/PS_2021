@@ -5,6 +5,6 @@ import es.unican.ps.supermercado.common.dominio.Usuario;
 public interface IGestionUsuarios {
 
 	public Usuario registrar(Usuario u);
-	public boolean login(String dni);
+	public Usuario login(String dni);
 	
 }
