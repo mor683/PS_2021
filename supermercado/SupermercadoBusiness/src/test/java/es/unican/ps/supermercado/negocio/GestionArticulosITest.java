@@ -24,7 +24,7 @@ public class GestionArticulosITest {
 	// Creacion contenedor embebido
 	private static EJBContainer ec;
 
-	private Articulo detergente;
+	private static Articulo detergente;
 	private Articulo aceite;
 
 
@@ -45,7 +45,9 @@ public class GestionArticulosITest {
 	// java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosLocal
 	@AfterClass
 	public static void closeContainer() throws Exception {
-		//Cerramos el contenedor
+		// Reestablecer la base de datos
+		sut.actualizarStock(detergente, 30);
+		// Cerramos el contenedor
 		if(ec!= null) {
 			ec.close();
 		}
