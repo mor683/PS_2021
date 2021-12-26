@@ -2,26 +2,26 @@ package es.unican.ps.supermercado.common.dominio;
 
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Supermercado {
 
 	private Date horaApertura;
 	private Date horaCierre;
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
-	private Set<Articulo> articulos = new HashSet<Articulo>();
+	private List<Usuario> usuarios = new LinkedList<Usuario>();
+	private List<Articulo> articulos = new LinkedList<Articulo>();
 	
 	public Supermercado(Date horaApertura, Date horaCierre) {
-		this.setHoraApertura(horaApertura);
-		this.setHoraCierre(horaCierre);
+		this.ListHoraApertura(horaApertura);
+		this.ListHoraCierre(horaCierre);
 	}
 
 	public Date getHoraApertura() {
 		return horaApertura;
 	}
 
-	public void setHoraApertura(Date horaApertura) {
+	public void ListHoraApertura(Date horaApertura) {
 		this.horaApertura = horaApertura;
 	}
 
@@ -29,23 +29,23 @@ public class Supermercado {
 		return horaCierre;
 	}
 
-	public void setHoraCierre(Date horaCierre) {
+	public void ListHoraCierre(Date horaCierre) {
 		this.horaCierre = horaCierre;
 	}
 
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void ListUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
-	public Set<Articulo> getArticulos() {
+	public List<Articulo> getArticulos() {
 		return articulos;
 	}
 
-	public void setArticulos(Set<Articulo> articulos) {
+	public void ListArticulos(List<Articulo> articulos) {
 		this.articulos = articulos;
 	}
 

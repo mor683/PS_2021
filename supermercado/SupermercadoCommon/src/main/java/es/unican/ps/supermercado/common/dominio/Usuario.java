@@ -1,11 +1,12 @@
 package es.unican.ps.supermercado.common.dominio;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -28,12 +29,11 @@ public class Usuario implements Serializable {
 	@Column(name="Compras_Mensuales")
 	private int comprasMensuales;
 	
-	@OneToMany
-	@JoinColumn(name="LineasPedido_FK")
-	private Set<LineaPedido> carritoActual = new HashSet<LineaPedido>();
+	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER)
+	private List<LineaPedido> carritoActual = new LinkedList<LineaPedido>();
 	
-	@OneToMany(mappedBy="usuario")
-	private Set<Pedido> pedidos = new HashSet<Pedido>();
+	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER)
+	private List<Pedido> pedidos = new LinkedList<Pedido>();
 	
 	public Usuario() {
 		
@@ -87,20 +87,25 @@ public class Usuario implements Serializable {
 		this.comprasMensuales = comprasMensuales;
 	}
 
-	public Set<LineaPedido> getCarritoActual() {
+	public List<LineaPedido> getCarritoActual() {
 		return carritoActual;
 	}
 
-	public void setCarritoActual(Set<LineaPedido> carritoActual) {
+	public void setCarritoActual(List<LineaPedido> carritoActual) {
 		this.carritoActual = carritoActual;
 	}
 
-	public Set<Pedido> getPedidos() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(Set<Pedido> pedidos) {
+	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+	
+	public void anhadirPedido(Pedido p) {
+		pedidos.add(p);
+		comprasMensuales++;
 	}
 	
 }

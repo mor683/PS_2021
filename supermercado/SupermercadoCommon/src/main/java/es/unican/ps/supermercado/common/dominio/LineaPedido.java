@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,6 +21,14 @@ public class LineaPedido implements Serializable {
 	private long id;
 
 	private int cantidad;
+	
+	@ManyToOne
+	@JoinColumn(name="Usuario_FK")
+	private Usuario usuario;
+	
+	@ManyToOne
+	@JoinColumn(name="Pedido_FK")
+	private Pedido pedido;
 	
 	@OneToOne
 	@JoinColumn(name="Articulo_FK")
@@ -48,6 +57,22 @@ public class LineaPedido implements Serializable {
 	
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	public Articulo getArticulo() {

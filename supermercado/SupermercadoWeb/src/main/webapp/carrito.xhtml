@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Supermercado</title>
+</h:head>
+<h:body>
+	<h1>Carro Compra</h1>
+	<h:form>
+		<h:dataTable border="1" cellpadding="2" cellspacing="0"
+			value="#{supermercadoBean.carrito}" var="linea">
+			<h:column>
+				<f:facet name="header">Nombre</f:facet>
+				<h:outputText value="#{linea.articulo.nombre}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Unidades</f:facet>
+				<h:outputText value="#{linea.cantidad}" />
+			</h:column>
+		</h:dataTable>
+
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Precio: " />
+			<h:outputText value="#{supermercadoBean.precioTotal}">
+				<f:convertNumber minFractionDigits="2" />
+			</h:outputText>
+
+			<h:outputLabel value="Hora de recogida: " />
+			<h:inputText value="#{supermercadoBean.horaRecogida}">
+				<f:convertDateTime pattern="HH:mm:ss" />
+			</h:inputText>
+		</h:panelGrid>
+
+		<h:commandButton id="buttonSeguirComprando" value="Seguir Comprando"
+			action="#{supermercadoBean.inicio}" style="width: 150px; " />
+		<h:commandButton id="buttonConfirmarCarro" value="Confirmar Carro"
+			action="#{supermercadoBean.confirmarPedido}" style="width: 150px; " />
+	</h:form>
+</h:body>
+</html>

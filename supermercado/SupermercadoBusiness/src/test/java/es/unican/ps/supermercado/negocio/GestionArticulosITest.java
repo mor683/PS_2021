@@ -15,6 +15,8 @@ import org.junit.Test;
 
 import es.unican.ps.supermercado.common.dominio.Articulo;
 import es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote;
+import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
+import es.unican.ps.supermercado.dao.UsuariosDAO;
 
 public class GestionArticulosITest {
 
@@ -40,7 +42,7 @@ public class GestionArticulosITest {
 		ec = EJBContainer.createEJBContainer(properties);
 
 		// Buscamos el EJB
-		sut= (IGestionArticulosRemote) ec.getContext().lookup("java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote");
+		sut = (IGestionArticulosRemote) ec.getContext().lookup("java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote");
 	}
 	// java:global/ejb-app/classes/GestionArticulos!es.unican.ps.supermercado.common.interfaces.IGestionArticulosLocal
 	@AfterClass
@@ -56,13 +58,13 @@ public class GestionArticulosITest {
 		detergente = new Articulo("Detergente", 30, 12.20);
 		detergente.setId(1);
 		aceite = new Articulo("Aceite", 10, 4.50);
-		aceite.setId(2);
+		aceite.setId(10);
 	}
 
 	// IT.3 - Clase GestionArticulos
 	@Test
 	public void testActualizarStock() {
-
+				
 		// IT.3a
 		assertEquals(sut.actualizarStock(detergente, 35).getUnidadesStock(), 35);
 

@@ -1,5 +1,6 @@
 package es.unican.ps.supermercado.dao;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
@@ -65,9 +66,9 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Usuario> usuarios() {
+	public List<Usuario> usuarios() {
 		Query q = em.createQuery("SELECT u from Usuario u");
-		return (Set<Usuario>) q.getResultList();
+		return q.getResultList();
 	}
 
 }

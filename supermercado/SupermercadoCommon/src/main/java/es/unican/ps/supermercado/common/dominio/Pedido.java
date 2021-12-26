@@ -2,11 +2,13 @@ package es.unican.ps.supermercado.common.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,6 +27,8 @@ public class Pedido implements Serializable {
 	
 	private Date fecha;
 	
+	private double precio;
+	
 	@Column(name="Hora_De_Recogida")
 	private Date horaRecogida;
 	
@@ -32,20 +36,20 @@ public class Pedido implements Serializable {
 	@JoinColumn(name="Usuario_FK")
 	private Usuario usuario;
 	
-	@OneToMany
-	@JoinColumn(name="Pedido_FK")
-	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
+	@OneToMany(mappedBy="pedido", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();
 	
 	public Pedido() {
 		
 	}
 	
-	public Pedido(Usuario usuario, Set<LineaPedido> lineasPedido) {
+	public Pedido(Usuario usuario, List<LineaPedido> lineasPedido, Date fecha, Date horaRecogida) {
 		this.setEstado("Admitido");
-		this.setFecha(new Date());
-		this.setHoraRecogida(null);
+		this.setFecha(fecha);
+		this.setHoraRecogida(horaRecogida);
 		this.setUsuario(usuario);
 		this.lineasPedido = lineasPedido;
+		this.precio = getPrecio();
 	}
 	
 
@@ -89,11 +93,11 @@ public class Pedido implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Set<LineaPedido> getLineasPedido() {
+	public List<LineaPedido> getLineasPedido() {
 		return lineasPedido;
 	}
 
-	public void setLineasPedido(Set<LineaPedido> lineasPedido) {
+	public void setLineasPedido(List<LineaPedido> lineasPedido) {
 		this.lineasPedido = lineasPedido;
 	}
 	
@@ -103,5 +107,9 @@ public class Pedido implements Serializable {
 			precio += l.getCantidad() * l.getArticulo().getPrecio();
 		}
 		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 }

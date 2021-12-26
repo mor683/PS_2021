@@ -1,6 +1,7 @@
 package es.unican.ps.supermercado.common.interfaces;
 
 
+import java.util.List;
 import java.util.Set;
 
 import es.unican.ps.supermercado.common.dominio.Articulo;
@@ -11,6 +12,6 @@ public interface IArticulosDAO {
 	public Articulo modificarArticulo(Articulo a);
 	public Articulo eliminarArticulo(Articulo a);
 	public Articulo articuloPorId(long id);
-	public Set<Articulo> articulos();
+	public List<Articulo> articulos();
 
 }

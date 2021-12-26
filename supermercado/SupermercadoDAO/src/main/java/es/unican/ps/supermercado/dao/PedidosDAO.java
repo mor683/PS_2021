@@ -1,5 +1,6 @@
 package es.unican.ps.supermercado.dao;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
@@ -71,9 +72,9 @@ public class PedidosDAO implements IPedidosDAOLocal, IPedidosDAORemote {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Pedido> pedidos() {
+	public List<Pedido> pedidos() {
 		Query q = em.createQuery("SELECT p from Pedido p");
-		return (Set<Pedido>) q.getResultList();
+		return q.getResultList();
 	}
 
 }

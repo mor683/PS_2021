@@ -1,7 +1,9 @@
 package es.unican.ps.supermercado.negocio;
 
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.ejb.EJB;
@@ -18,10 +20,13 @@ import es.unican.ps.supermercado.common.interfaces.IGestionComprasLocal;
 import es.unican.ps.supermercado.common.interfaces.IGestionComprasRemote;
 import es.unican.ps.supermercado.common.interfaces.IGestionPedidosLocal;
 import es.unican.ps.supermercado.common.interfaces.IGestionPedidosRemote;
+import es.unican.ps.supermercado.common.interfaces.ILineasPedidoDAORemote;
 import es.unican.ps.supermercado.common.interfaces.IPedidosDAORemote;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosLocal;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosRemote;
 import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
+import es.unican.ps.supermercado.dao.PedidosDAO;
+import es.unican.ps.supermercado.dao.UsuariosDAO;
 
 
 
@@ -36,7 +41,12 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 
 	@EJB
 	private IArticulosDAORemote articulosDAO;
-	
+
+	@EJB
+	private ILineasPedidoDAORemote lineasDAO;
+
+	private static int idPedido = 0;
+
 	public GestionPedidos() {}
 
 	public double entregarPedido(String ref, String dni) {
@@ -75,14 +85,15 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 	}
 
 	public boolean resetearComprasMensuales() {
-		Set<Usuario> usuarios = usuariosDAO.usuarios();
+		List<Usuario> usuarios = usuariosDAO.usuarios();
 		for (Usuario u:usuarios) {
 			u.setComprasMensuales(0);
+			usuariosDAO.modificarUsuario(u);
 		}
 		return true;
 	}
 
-	public Set<Articulo> verArticulos() {
+	public List<Articulo> verArticulos() {
 		return articulosDAO.articulos();
 	}
 
@@ -92,32 +103,64 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 
 		if (articulo.getUnidadesStock() >= numUnidades) {
 			LineaPedido lineaPedido = new LineaPedido(numUnidades, articulo);
+			lineaPedido.setUsuario(usuario);
+			lineasDAO.crearLineaPedido(lineaPedido);
 			usuario.getCarritoActual().add(lineaPedido);
+			usuariosDAO.modificarUsuario(usuario);
 			resultado = true;
 		}
 
 		return resultado;
 	}
 
-	public Set<LineaPedido> verCarrito(Usuario usuario) {
+	public List<LineaPedido> verCarrito(Usuario usuario) {
 		return usuario.getCarritoActual();
 	}
 
+	@SuppressWarnings("deprecation")
 	public Pedido confirmarPedido(Date horaDeRecogida, Usuario usuario) {
-		long hours = TimeUnit.MILLISECONDS.toHours(horaDeRecogida.getTime());
+		Calendar cal = Calendar.getInstance();
+
+		// getTime devuelve la hora en GMT a partir del 01/01/1970
+		long hours = TimeUnit.MILLISECONDS.toHours(horaDeRecogida.getTime() + 1);
+
+		cal.set(Calendar.HOUR_OF_DAY, horaDeRecogida.getHours() - 1);
+		cal.set(Calendar.MINUTE, horaDeRecogida.getMinutes());
+		cal.set(Calendar.SECOND, horaDeRecogida.getSeconds());
+
+		Date d = cal.getTime();
+
+		Pedido pedido = null;
 
 		// Comprueba que la hora de recogida sea en el mismo dia, entre las 9:00 y las 21:00.
-		if (DateUtils.isSameDay(horaDeRecogida, new Date()) && hours >= 9 && hours <= 21) {
-			// Actualiza el stock de los articulos.
-			for (LineaPedido l : usuario.getCarritoActual()) {
-				l.getArticulo().setUnidadesStock(l.getArticulo().getUnidadesStock()-l.getCantidad());
-			}
-			
+		if (hours >= 9 && hours <= 21) {
 			// Se almacena el pedido.
-			Pedido pedido = new Pedido(usuario, usuario.getCarritoActual());
-			usuario.getPedidos().add(pedido);
+			List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();
+			lineasPedido.addAll(usuario.getCarritoActual());
+			pedido = new Pedido(usuario, lineasPedido, new Date(), d);
+			pedido.setReferencia("pedido" + idPedido);
+			idPedido++;
+
+			// Actualiza el stock de los articulos.
+			usuario.getCarritoActual().add(new LineaPedido(100, articulosDAO.articuloPorId(1)));
+			
+			for (LineaPedido l : usuario.getCarritoActual()) {
+			    usuario.setNombre("FOR");
+			    
+				Articulo a = l.getArticulo();				
+				a.setUnidadesStock(l.getArticulo().getUnidadesStock() - l.getCantidad());
+				articulosDAO.modificarArticulo(a);
+				l.setPedido(pedido);
+				lineasDAO.modificarLineaPedido(l);
+				pedido.getLineasPedido().add(l);
+			}
+
+			usuario.anhadirPedido(pedido);
+			pedidosDAO.crearPedido(pedido);
+			usuario.getCarritoActual().clear();
+			usuariosDAO.modificarUsuario(usuario);
 		}
-		return null;
+		return pedido;
 	}
 
 }

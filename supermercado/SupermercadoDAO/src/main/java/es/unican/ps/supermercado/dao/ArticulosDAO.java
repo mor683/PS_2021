@@ -1,5 +1,6 @@
 package es.unican.ps.supermercado.dao;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
@@ -37,6 +38,7 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 		// Modificamos el articulo o le creamos si no existe
 		try {
 			em.merge(a);
+			em.flush();
 		} catch (IllegalArgumentException e) {
 			// No existe el articulo
 			return null;
@@ -71,9 +73,9 @@ public class ArticulosDAO implements IArticulosDAOLocal, IArticulosDAORemote {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Articulo> articulos() {
+	public List<Articulo> articulos() {
 		Query q = em.createQuery("SELECT a from Articulo a");
-		return (Set<Articulo>) q.getResultList();
+		return q.getResultList();
 	}
 
 	public void setEntityManager(EntityManager em) {

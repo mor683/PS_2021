@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>SupermercadoEAR</artifactId>
-	
+
 	<packaging>ear</packaging>
 
 	<dependencies>
@@ -28,6 +28,13 @@
 			<groupId>es.unican.ps</groupId>
 			<artifactId>SupermercadoDAO</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>es.unican.ps</groupId>
+			<artifactId>SupermercadoWeb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>war</type>
 		</dependency>
 	</dependencies>
 
@@ -58,6 +65,14 @@
 							<groupId>es.unican.ps</groupId>
 							<artifactId>SupermercadoBusiness</artifactId>
 						</ejbModule>
+						<ejbModule>
+							<groupId>es.unican.ps</groupId>
+							<artifactId>SupermercadoDAO</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>es.unican.ps</groupId>
+							<artifactId>SupermercadoWeb</artifactId>
+						</webModule>
 						<!-- Este módulo es solo una librería, se añade como jarModule de modo 
 							que se añade a la carpeta lib del ear -->
 						<jarModule>
