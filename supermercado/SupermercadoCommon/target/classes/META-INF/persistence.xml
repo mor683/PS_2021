@@ -9,7 +9,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<!-- EclipseLink -->
 
-		<jta-data-source>jdbc/supermercado</jta-data-source>
+		<jta-data-source>jdbc:/supermercado</jta-data-source>
 
 		<class>es.unican.ps.supermercado.common.dominio.Articulo</class>
 		<class>es.unican.ps.supermercado.common.dominio.LineaPedido</class>

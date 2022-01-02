@@ -104,7 +104,6 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 		if (articulo.getUnidadesStock() >= numUnidades) {
 			LineaPedido lineaPedido = new LineaPedido(numUnidades, articulo);
 			lineaPedido.setUsuario(usuario);
-			lineasDAO.crearLineaPedido(lineaPedido);
 			usuario.getCarritoActual().add(lineaPedido);
 			usuariosDAO.modificarUsuario(usuario);
 			resultado = true;
@@ -141,24 +140,25 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 			pedido.setReferencia("pedido" + idPedido);
 			idPedido++;
 
-			// Actualiza el stock de los articulos.
-			usuario.getCarritoActual().add(new LineaPedido(100, articulosDAO.articuloPorId(1)));
-			
-			for (LineaPedido l : usuario.getCarritoActual()) {
-			    usuario.setNombre("FOR");
-			    
+			// Actualiza el stock de los articulos y calcula el precio total del pedido
+			double precio = 0;
+			for (LineaPedido l : usuariosDAO.usuarioPorDni(usuario.getDni()).getCarritoActual()) {
 				Articulo a = l.getArticulo();				
 				a.setUnidadesStock(l.getArticulo().getUnidadesStock() - l.getCantidad());
 				articulosDAO.modificarArticulo(a);
 				l.setPedido(pedido);
 				lineasDAO.modificarLineaPedido(l);
 				pedido.getLineasPedido().add(l);
+				
+				precio += l.getCantidad() * l.getArticulo().getPrecio();
 			}
 
+			pedido.setPrecio(precio);
+			
 			usuario.anhadirPedido(pedido);
-			pedidosDAO.crearPedido(pedido);
 			usuario.getCarritoActual().clear();
 			usuariosDAO.modificarUsuario(usuario);
+			pedidosDAO.modificarPedido(pedido);
 		}
 		return pedido;
 	}

@@ -36,7 +36,7 @@ public class Pedido implements Serializable {
 	@JoinColumn(name="Usuario_FK")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy="pedido", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="pedido", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();
 	
 	public Pedido() {
@@ -102,10 +102,6 @@ public class Pedido implements Serializable {
 	}
 	
 	public double getPrecio() {
-		double precio = 0;
-		for (LineaPedido l : lineasPedido) {
-			precio += l.getCantidad() * l.getArticulo().getPrecio();
-		}
 		return precio;
 	}
 
