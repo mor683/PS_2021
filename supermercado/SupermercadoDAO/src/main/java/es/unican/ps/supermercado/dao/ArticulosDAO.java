@@ -1,7 +1,6 @@
 package es.unican.ps.supermercado.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;

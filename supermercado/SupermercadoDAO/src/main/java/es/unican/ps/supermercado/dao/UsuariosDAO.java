@@ -1,9 +1,14 @@
 package es.unican.ps.supermercado.dao;
 
 import java.util.List;
-import java.util.Set;
 
+import javax.annotation.Resource;
+import javax.ejb.ScheduleExpression;
 import javax.ejb.Stateless;
+import javax.ejb.Timeout;
+import javax.ejb.Timer;
+import javax.ejb.TimerConfig;
+import javax.ejb.TimerService;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,11 +24,19 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 
 	@PersistenceContext(unitName="supermercadoPU")
 	private EntityManager em;
+	
+	@Resource
+	TimerService timerService;
+
 
 	public Usuario crearUsuario(Usuario u) {
 		// Hacemos persistente el usuario
 		try {
 			em.persist(u);
+			
+			// Programación de un evento para resetear las compras mensuales del cliente
+			ScheduleExpression initialDay = new ScheduleExpression().dayOfMonth(1);
+			timerService.createCalendarTimer(initialDay, new TimerConfig(u, true));
 		} catch (EntityExistsException e) {
 			// Ya existe un usuario en la BD con ese dni
 			return null;
@@ -69,6 +82,14 @@ public class UsuariosDAO implements IUsuariosDAOLocal, IUsuariosDAORemote {
 	public List<Usuario> usuarios() {
 		Query q = em.createQuery("SELECT u from Usuario u");
 		return q.getResultList();
+	}
+	
+	@Timeout
+	public void resetearComprasMensuales(Timer timer) {
+		Usuario u = (Usuario) timer.getInfo();
+		u.setComprasMensuales(0);
+		this.modificarUsuario(u);
+		return;
 	}
 
 }

@@ -24,16 +24,16 @@ public class SupermercadoBean {
 	@EJB
 	private IGestionUsuariosRemote myGestionUsuarios;
 	
-	private String dni;					//
-	private Usuario usuario;			//
-	private int unidades;				//
-	private Date horaRecogida;			//
-	private Articulo articulo;			//
+	private String dni;					
+	private Usuario usuario;			
+	private int unidades;				
+	private Date horaRecogida;			
+	private Articulo articulo;			
 	private String nombreArticulo;
-	private List<Articulo> articulos;	//
-	private List<LineaPedido> carrito;	//
-	private double precioTotal;			//
-	private Pedido pedido;				//
+	private List<Articulo> articulos;	
+	private List<LineaPedido> carrito;	
+	private double precioTotal;			
+	private Pedido pedido;				
 	private String referencia;
 	
 	public SupermercadoBean() {	}
@@ -163,6 +163,7 @@ public class SupermercadoBean {
 	
 	public String confirmarPedido() {
 		this.pedido = myGestionPedidos.confirmarPedido(horaRecogida, usuario);
+		this.usuario = myGestionUsuarios.login(dni);
 		
 		if (pedido == null) {
 			this.setReferencia("ERROR: Hora de recogida incorrecta");

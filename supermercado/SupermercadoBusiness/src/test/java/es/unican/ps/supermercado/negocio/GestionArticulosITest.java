@@ -15,8 +15,6 @@ import org.junit.Test;
 
 import es.unican.ps.supermercado.common.dominio.Articulo;
 import es.unican.ps.supermercado.common.interfaces.IGestionArticulosRemote;
-import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
-import es.unican.ps.supermercado.dao.UsuariosDAO;
 
 public class GestionArticulosITest {
 

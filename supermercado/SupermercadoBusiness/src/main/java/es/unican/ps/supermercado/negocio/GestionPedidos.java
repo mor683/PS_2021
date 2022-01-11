@@ -9,8 +9,6 @@ import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import org.apache.commons.lang3.time.DateUtils;
-
 import es.unican.ps.supermercado.common.dominio.Articulo;
 import es.unican.ps.supermercado.common.dominio.LineaPedido;
 import es.unican.ps.supermercado.common.dominio.Pedido;
@@ -25,9 +23,6 @@ import es.unican.ps.supermercado.common.interfaces.IPedidosDAORemote;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosLocal;
 import es.unican.ps.supermercado.common.interfaces.IRealizacionPedidosRemote;
 import es.unican.ps.supermercado.common.interfaces.IUsuariosDAORemote;
-import es.unican.ps.supermercado.dao.PedidosDAO;
-import es.unican.ps.supermercado.dao.UsuariosDAO;
-
 
 
 @Stateless
@@ -149,13 +144,20 @@ public class GestionPedidos implements IGestionPedidosLocal, IGestionPedidosRemo
 				l.setPedido(pedido);
 				lineasDAO.modificarLineaPedido(l);
 				pedido.getLineasPedido().add(l);
-				
+
 				precio += l.getCantidad() * l.getArticulo().getPrecio();
 			}
 
 			pedido.setPrecio(precio);
-			
+
+			// TODO
+			System.out.println("Antes: " + usuario.getComprasMensuales());
+
 			usuario.anhadirPedido(pedido);
+
+			// TODO
+			System.out.println("Despues: " + usuario.getComprasMensuales());
+
 			usuario.getCarritoActual().clear();
 			usuariosDAO.modificarUsuario(usuario);
 			pedidosDAO.modificarPedido(pedido);
